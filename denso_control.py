@@ -208,18 +208,23 @@ class DensoControl:
     def on_target(self, js, client, userdata, msg):
         # データ取得
         if 'pos' in js:
-            x = js['pos']['x']
-            y = js['pos']['y']
-            z = js['pos']['z']
-            xd = js['ori']['x']
-            yd = js['ori']['y']
-            zd = js['ori']['z']
+            x = -js['pos']['x']
+            y = js['pos']['z']
+            z = js['pos']['y']
+            xd = 0
+            yd = 0
+            zd = 0
+#                        x="-x", y="z", z="y", xd="-xd", yd="zd", zd="yd",
+
+#            xd = js['ori']['x']
+#            yd = js['ori']['y']
+#            zd = js['ori']['z']
             t = time.time()
         else:
             logger.warning("Unexpected JSON", js)
             return
         # 座標変換
-        x, y, z, xd, yd, zd = self.transform(x, y, z, xd, yd, zd)
+#        x, y, z, xd, yd, zd = self.transform(x, y, z, xd, yd, zd)
         x *= self.scale_mqtt_vs_real
         y *= self.scale_mqtt_vs_real
         z *= self.scale_mqtt_vs_real
